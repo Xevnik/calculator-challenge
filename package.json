@@ -1,0 +1,22 @@
+{
+  "name": "calculator-challenge",
+  "version": "1.0.0",
+  "description": "Restaurant365 Code Challenge - String Calculator",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gist.github.com/8bdba01b0507fb8e31b3c15737cf070f.git"
+  },
+  "author": "Kevin Chau Huynh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gist.github.com/8bdba01b0507fb8e31b3c15737cf070f"
+  },
+  "homepage": "https://gist.github.com/8bdba01b0507fb8e31b3c15737cf070f",
+  "dependencies": {
+    "cypress": "^3.4.1"
+  }
+}

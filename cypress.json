@@ -1,0 +1,4 @@
+{
+    "ignoreTestFiles": ["actions.spec.js", "location.spec.js"],
+    "video": false
+}
