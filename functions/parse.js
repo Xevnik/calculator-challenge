@@ -14,16 +14,13 @@ module.exports = (userInput) => {
     numArray
         .map(num => parseInt(num, 10))
         .forEach(num => {
-            console.log(num, typeof num)
-            if (num > -1) {
+            if (num > -1 && num < 1000) {
                 positiveNums = [...positiveNums, num];
             // filter for negative numbers only. Ignore non-numbers
-            } else if (Number.isInteger(num)) {
+            } else if (Number.isInteger(num) && num < 0) {
                 negativeNums = [...negativeNums, num];
             }
         });
-    console.log(positiveNums);
-    console.log(negativeNums)
     if (negativeNums.length) throw new Error(`Negative numbers ${[negativeNums]} provided`);
     return positiveNums;
 };
