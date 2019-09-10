@@ -4,7 +4,10 @@
  * @return [int] = array of integers
  */
 module.exports = (userInput) => {
-    let numArray = userInput.split(',');
+    // find \n and replace with comma for splitting
+    const newLineRegex = /\\n/g;
+    const withoutNewLines = userInput.replace(newLineRegex, ',');
+    let numArray = withoutNewLines.split(',');
     numArray = numArray
                 .map(num => parseInt(num, 10))
                 .filter(num => num);
