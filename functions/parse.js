@@ -4,19 +4,25 @@
  * @return [int] = array of integers
  */
 module.exports = (userInput) => {
-    // parse for custom single character delimiters
-    const customDelimiterRegex = /\/\/(.*?)\\n/;
+    // parse for custom character delimiters
+    const customDelimiterRegex = /\/\/\[?(.*?)\]?\\n/;
     let customDelimiter = userInput.match(customDelimiterRegex);
+
     if (customDelimiter) {
+        // grab the custom delimiter
         customDelimiter = customDelimiter[1];
+        // if delimiter has special characters, than escape them
+        customDelimiter = customDelimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+        // remove declaration of custom delimiter, so that only numbers are left
         userInput = userInput.replace(customDelimiterRegex, '');
-        userInput = userInput.replace(new RegExp(customDelimiter, 'gi'), ',');
+        userInput = userInput.replace(new RegExp(customDelimiter, 'g'), ',');
     }
-    console.log(userInput)
+
     // find \n and replace with comma for splitting
     const newLineRegex = /\\n/g;
     const withoutNewLines = userInput.replace(newLineRegex, ',');
     let numArray = withoutNewLines.split(',');
+    console.log(numArray)
 
     // separates postive numbers from negative and trash values
     let negativeNums = [];
@@ -32,5 +38,6 @@ module.exports = (userInput) => {
             }
         });
     if (negativeNums.length) throw new Error(`Negative numbers ${[negativeNums]} provided`);
+    
     return positiveNums;
 };
