@@ -12,7 +12,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-rl.question("Enter numbers (separated by ',' or '\\n') to be added: ", (numbers) => {
+rl.question("Enter numbers to be added: ", (numbers) => {
     const numArray = parseFunc(numbers);
     const sum = addFunc(numArray);
     console.log(`The sum is: ${sum}`);

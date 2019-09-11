@@ -26,5 +26,14 @@ describe('Unit tests for the parse function', () => {
     it('Numbers greater than 1000 are ignored', () => {
         expect(parse('2, 1001, 6')).to.deep.equal([2, 6]);
         expect(parse('2, 1001, 6, 9001')).to.deep.equal([2, 6]);
-    })
+    });
+    it('Single character custom delimiter are supported', () => {
+        expect(parse('//;\\n2;5;6')).to.deep.equal([2, 5, 6]);
+    });
+    it('Custom delimiter with newline does not include second instance of newline', () => {
+        expect(parse('//;\\n2;5;6\\n3')).to.deep.equal([2, 5, 6, 3]);
+    });
+    // it('Custom delimiters of any lengths are supported //[{delimiter}]\n{numbers} eg. \\[***]\n11***22***33', () => {
+    //     expect(parse("\\[***]\\n11***22***33")).to.deep.equal([11, 22, 33]);
+    // });
 });

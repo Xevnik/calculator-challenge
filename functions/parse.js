@@ -4,11 +4,21 @@
  * @return [int] = array of integers
  */
 module.exports = (userInput) => {
+    // parse for custom single character delimiters
+    const customDelimiterRegex = /\/\/(.*?)\\n/;
+    let customDelimiter = userInput.match(customDelimiterRegex);
+    if (customDelimiter) {
+        customDelimiter = customDelimiter[1];
+        userInput = userInput.replace(customDelimiterRegex, '');
+        userInput = userInput.replace(new RegExp(customDelimiter, 'gi'), ',');
+    }
+    console.log(userInput)
     // find \n and replace with comma for splitting
     const newLineRegex = /\\n/g;
     const withoutNewLines = userInput.replace(newLineRegex, ',');
     let numArray = withoutNewLines.split(',');
 
+    // separates postive numbers from negative and trash values
     let negativeNums = [];
     let positiveNums = [];
     numArray
