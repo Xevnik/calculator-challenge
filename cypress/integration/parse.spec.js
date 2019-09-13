@@ -38,4 +38,7 @@ describe('Unit tests for the parse function', () => {
         expect(parse("//[*;?]\\n11*;?22*;?33")).to.deep.equal([11, 22, 33]);
         expect(parse("//[abc]\\n11abc22abc33")).to.deep.equal([11, 22, 33]);
     });
+    it('Multiple custom delimiter of any length works', () => {
+        expect(parse("\/\/[\*][!!][r9r]\\n11r9r22*33!!44")).to.deep.equal([11, 22, 33, 44]);
+    });
 });
