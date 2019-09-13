@@ -5,7 +5,8 @@
  */
 module.exports = (userInput) => {
     // capture all delimiters declared between // and \n
-    const delimiterGroups = userInput.match(/\/\/(.*?)\\n/);
+    const delimiterRegex = /\/\/(.*?)\\n/;
+    const delimiterGroups = userInput.match(delimiterRegex);
 
     let customDelimiter = [];
     // Any custom delimiters?
@@ -28,19 +29,18 @@ module.exports = (userInput) => {
             customDelimiter = customDelimiter.map(
                 delimiter => delimiter.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
             );
+            //create regex from custom delimiter
             const combinedRegex = customDelimiter.join('|');
-
-            // remove declaration of custom delimiter, so that only numbers are left
-            userInput = userInput.replace(delimiterGroups, '');
+            // remove delimiter declaration and replace delimiters with commas
+            userInput = userInput.replace(delimiterRegex, '');
             userInput = userInput.replace(new RegExp(combinedRegex, 'g'), ',');
         }
     }
-
     // find \n and replace with comma for splitting
     const newLineRegex = /\\n/g;
     const withoutNewLines = userInput.replace(newLineRegex, ',');
     let numArray = withoutNewLines.split(',');
-
+    
     // separates postive numbers from negative and trash values
     let negativeNums = [];
     let positiveNums = [];
@@ -52,8 +52,12 @@ module.exports = (userInput) => {
             // filter for negative numbers only. Ignore non-numbers
             } else if (Number.isInteger(num) && num < 0) {
                 negativeNums = [...negativeNums, num];
+            } else {
+                // if doing division and multiplication, 0 will matter
+                positiveNums = [...positiveNums, 0];
             }
         });
+
     if (negativeNums.length) throw new Error(`Negative numbers ${[negativeNums]} provided`);
 
     return positiveNums;
